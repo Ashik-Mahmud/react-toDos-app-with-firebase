@@ -27,7 +27,7 @@ const SignUp = () => {
 
   const [createUserWithEmailAndPassword, user, loading, error] =
     useCreateUserWithEmailAndPassword(auth);
-  const [updateProfile, updating] = useUpdateProfile(auth);
+  const [updateProfile] = useUpdateProfile(auth);
 
   /* handle create user  */
   const handleCreateUser = async (event) => {
@@ -124,7 +124,7 @@ const SignUp = () => {
               onClick={() => navigate("/login")}
             >
               {" "}
-              Sign In
+              {loading ? "Creating...." : "Sign Up"}
             </span>
           </p>
         </form>

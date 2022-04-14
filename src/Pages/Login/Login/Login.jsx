@@ -1,9 +1,18 @@
 import React, { useContext, useEffect, useState } from "react";
+import {
+  useSendPasswordResetEmail,
+  useSignInWithEmailAndPassword,
+} from "react-firebase-hooks/auth";
+import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../App";
+import { auth } from "../../../Firebase/Firebase.config";
 import SocialLogin from "../SocialLogin/SocialLogin";
 import "../Styles/styles.css";
 const Login = () => {
+  const [signInWithEmailAndPassword, user, loading, error] =
+    useSignInWithEmailAndPassword(auth);
+  const [sendPasswordResetEmail] = useSendPasswordResetEmail(auth);
   const { isAuth } = useContext(AuthContext);
   const navigate = useNavigate();
   useEffect(() => {
@@ -12,7 +21,41 @@ const Login = () => {
     }
   }, [isAuth, navigate]);
 
+  const [inputLogin, setInputLogin] = useState({
+    email: "",
+    password: "",
+  });
+
   const [reset, setReset] = useState(false);
+
+  /* handle login form */
+
+  const handleLoginForm = (event) => {
+    event.preventDefault();
+    if (!inputLogin.email) return toast.error("Email field is required.");
+    if (!reset) {
+      if (!inputLogin.password)
+        return toast.error("Password field is required.");
+    }
+    signInWithEmailAndPassword(inputLogin.email, inputLogin.password);
+  };
+
+  /*  handle reset password  */
+  const handleResetPassword = () => {
+    if (!inputLogin.email) return toast.error("Email is required for reset.");
+    sendPasswordResetEmail(inputLogin.email);
+    toast.success(`We sent password reset email on your ${inputLogin.email}`);
+  };
+
+  useEffect(() => {
+    if (user) {
+      toast.success("Logged In successfully done.");
+    }
+    if (error) {
+      toast.error(error.message.split(":")[1]);
+    }
+  }, [user, error]);
+
   return (
     <section className="login-container">
       <div className="form-wrapper">
@@ -25,15 +68,29 @@ const Login = () => {
             Sign In into <span className="colorize">Account</span>
           </h1>
         )}
-        <form action="">
+        <form action="" onSubmit={handleLoginForm}>
           <div className="input-group">
             <label htmlFor="email">Email</label>
-            <input type="email" id="email" placeholder="Email" />
+            <input
+              type="email"
+              id="email"
+              onBlur={(e) =>
+                setInputLogin({ ...inputLogin, email: e.target.value })
+              }
+              placeholder="Email"
+            />
           </div>
           {!reset && (
             <div className="input-group">
               <label htmlFor="password">Password</label>
-              <input type="password" id="password" placeholder="Password" />
+              <input
+                type="password"
+                onBlur={(e) =>
+                  setInputLogin({ ...inputLogin, password: e.target.value })
+                }
+                id="password"
+                placeholder="Password"
+              />
             </div>
           )}
           {reset ? (
@@ -61,9 +118,19 @@ const Login = () => {
           )}
 
           <div className="input-group">
-            <button type="submit" className="btn">
-              {reset ? " Reset" : " Sign In"}
-            </button>
+            {reset ? (
+              <button
+                type="button"
+                onClick={handleResetPassword}
+                className="btn"
+              >
+                Reset Password
+              </button>
+            ) : (
+              <button type="submit" className="btn">
+                Sign In
+              </button>
+            )}
           </div>
           {!reset && <SocialLogin />}
           <p>

@@ -27,7 +27,7 @@ const CreateTodo = () => {
   /*  verify email  */
   const verifyEmail = () => {
     if (auth?.currentUser?.email === null) {
-      return toast.error("Not available email of");
+      return toast.error("Not available email of this credential");
     }
     sendEmailVerification(auth?.currentUser?.email);
     toast.success("Email Verified successfully done.");
@@ -116,6 +116,10 @@ const CreateTodoContainer = styled.div`
     padding: 0.5rem 1rem;
     border-radius: 5px;
     color: var(--accent-color);
+    span[title] {
+      font-size: 0.9rem;
+      margin: 0rem 0.3rem;
+    }
     .action {
       position: relative;
       display: flex;
