@@ -82,3 +82,6 @@ table th {
   color: var(--primary-color);
   background-color: transparent;
 }
+.text-danger {
+  color: salmon;
+}

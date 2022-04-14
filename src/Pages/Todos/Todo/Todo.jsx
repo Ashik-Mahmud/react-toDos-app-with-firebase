@@ -7,7 +7,6 @@ const Todo = () => {
   return (
     <TodoContainer>
       <div className="container">
-        <h1>Todo</h1>
         <table>
           <thead>
             <tr>
@@ -48,6 +47,7 @@ const Todo = () => {
 const TodoContainer = styled.div`
   position: relative;
   color: var(--accent-color);
+
   .check {
     font-size: 2rem;
     color: #07e530ec;

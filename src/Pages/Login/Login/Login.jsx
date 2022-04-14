@@ -1,9 +1,17 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../../App";
 import SocialLogin from "../SocialLogin/SocialLogin";
 import "../Styles/styles.css";
 const Login = () => {
+  const { isAuth } = useContext(AuthContext);
   const navigate = useNavigate();
+  useEffect(() => {
+    if (isAuth) {
+      navigate("/home");
+    }
+  }, [isAuth, navigate]);
+
   const [reset, setReset] = useState(false);
   return (
     <section className="login-container">

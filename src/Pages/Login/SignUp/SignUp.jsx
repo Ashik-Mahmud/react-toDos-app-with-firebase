@@ -1,10 +1,17 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../../App";
 import SocialLogin from "../SocialLogin/SocialLogin";
 import "../Styles/styles.css";
 
 const SignUp = () => {
+  const { isAuth } = useContext(AuthContext);
   const navigate = useNavigate();
+  useEffect(() => {
+    if (isAuth) {
+      navigate("/home");
+    }
+  }, [isAuth, navigate]);
   return (
     <section className="signUp-container">
       <div className="form-wrapper">
