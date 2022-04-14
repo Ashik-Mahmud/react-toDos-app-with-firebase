@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   useSignInWithFacebook,
   useSignInWithGithub,
   useSignInWithGoogle,
 } from "react-firebase-hooks/auth";
+import toast from "react-hot-toast";
 import { BsFacebook, BsGithub, BsGoogle } from "react-icons/bs";
-import { useNavigate } from "react-router-dom";
 import { auth } from "../../../Firebase/Firebase.config";
 import "../Styles/styles.css";
 const SocialLogin = () => {
@@ -18,10 +18,11 @@ const SocialLogin = () => {
   const [signInWithFacebook, facebookUser, facebookLoading, facebookError] =
     useSignInWithFacebook(auth);
 
-  const navigate = useNavigate();
-  if (googleUser || githubUser || facebookUser) {
-    navigate("/home");
-  }
+  useEffect(() => {
+    if (googleError || githubError || facebookError) {
+      toast.error("Something went wrong by user.");
+    }
+  }, [googleError, githubError, facebookError]);
 
   return (
     <div id="socialLogin">
