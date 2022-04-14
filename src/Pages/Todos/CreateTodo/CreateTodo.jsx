@@ -1,15 +1,20 @@
 import { signOut } from "firebase/auth";
 import React, { useContext } from "react";
+import { useSendEmailVerification } from "react-firebase-hooks/auth";
 import toast from "react-hot-toast";
 import { AiOutlineLogout } from "react-icons/ai";
 import { BsSearch } from "react-icons/bs";
+import { GoUnverified } from "react-icons/go";
+import { MdVerified } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { AuthContext } from "../../../App";
 import { auth } from "../../../Firebase/Firebase.config";
+
 const CreateTodo = () => {
   const { loading, setIsAuth } = useContext(AuthContext);
   const navigate = useNavigate();
+  const [sendEmailVerification, sending] = useSendEmailVerification(auth);
   /* handleLogOut */
   const handleLogOut = () => {
     signOut(auth).then(() => {
@@ -19,13 +24,51 @@ const CreateTodo = () => {
     });
   };
 
+  /*  verify email  */
+  const verifyEmail = () => {
+    if (auth?.currentUser?.email === null) {
+      return toast.error("Not available email of");
+    }
+    sendEmailVerification(auth?.currentUser?.email);
+    toast.success("Email Verified successfully done.");
+  };
+
   return (
     <CreateTodoContainer>
       <div className="container">
         <div className="title">
           <h3>
-            ToDos By
-            <span className="colorize"> {auth?.currentUser?.displayName}</span>
+            ToDos By{" "}
+            <span
+              className={`${
+                !auth?.currentUser.emailVerified ? "text-danger" : "colorize"
+              }`}
+            >
+              {auth?.currentUser?.displayName}
+              {auth?.currentUser.emailVerified ? (
+                <>
+                  <span className="cursor-pointer" title="Verified.">
+                    <MdVerified />
+                  </span>
+                </>
+              ) : (
+                <>
+                  <span
+                    className="cursor-pointer text-danger"
+                    title="Unverified."
+                  >
+                    <GoUnverified />
+                  </span>{" "}
+                  <small
+                    onClick={() => verifyEmail()}
+                    className="colorize cursor-pointer"
+                    style={{ fontSize: "12px" }}
+                  >
+                    {sending ? "verifying...." : "verify"}
+                  </small>
+                </>
+              )}
+            </span>
           </h3>
           <div className="action">
             <img

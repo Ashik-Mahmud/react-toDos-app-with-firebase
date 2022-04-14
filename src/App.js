@@ -11,7 +11,7 @@ import SignUp from './Pages/Login/SignUp/SignUp';
 export const AuthContext = createContext(null)
 function App() {
   const [isAuth, setIsAuth] = useState(false)
-  const [user, loading, error] = useAuthState(auth);
+  const [user, loading] = useAuthState(auth);
 
 
   useEffect(()=>{

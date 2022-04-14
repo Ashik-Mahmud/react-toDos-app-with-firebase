@@ -22,7 +22,30 @@ const SocialLogin = () => {
     if (googleError || githubError || facebookError) {
       toast.error("Something went wrong by user.");
     }
-  }, [googleError, githubError, facebookError]);
+
+    if (googleUser || githubUser || facebookUser) {
+      toast.success("LoggedIn successfully done.");
+    }
+  }, [
+    googleError,
+    githubError,
+    facebookError,
+    googleUser,
+    githubUser,
+    facebookUser,
+  ]);
+
+  if (googleLoading || githubLoading || facebookLoading) {
+    return (
+      <p>
+        <img
+          width={60}
+          src="https://www.commpartners.com/wp-content/plugins/wp-meta-seo/assets/images/white-loader.gif"
+          alt="loader"
+        />
+      </p>
+    );
+  }
 
   return (
     <div id="socialLogin">
