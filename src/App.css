@@ -1,38 +1,83 @@
-.App {
-  text-align: center;
+:root {
+  --primary-color: #0097e1;
+  --secondary-color: #333;
+  --accent-color: #fff;
+
+  --fonts: "Poppins", sans-serif;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+*,
+*::after,
+*::before {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+body {
+  font-family: var(--fonts);
+  font-size: 16px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+a {
+  text-decoration: none;
+}
+li {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+table td,
+table th {
+  padding: 0.5rem;
+  border-bottom: 1px solid #ccc;
+}
+/* custom classes */
+.container {
+  max-width: min(100% - 2rem, 1200px);
+  margin-inline: auto;
+}
+.colorize {
+  color: var(--primary-color);
+}
+.cursor-pointer {
+  cursor: pointer;
+}
+.d-flex {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  gap: 0.4rem;
 }
 
-.App-link {
-  color: #61dafb;
+.btn,
+.btn-outline {
+  background-color: var(--primary-color);
+  border: none;
+  outline: none;
+  padding: 0.6rem 1rem;
+  color: var(--accent-color);
+  border-radius: 4px;
+  font-size: 1rem;
+  font-family: var(--fonts);
+  margin: 0.2rem;
+  transition: all 0.5s ease;
+  cursor: pointer;
+}
+.btn:active,
+.btn-outline:active {
+  transform: translateY(5px);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.btn-outline {
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
+  background-color: transparent;
 }
