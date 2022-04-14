@@ -45,7 +45,6 @@ table th {
 .container {
   max-width: min(100% - 2rem, 1200px);
   margin-inline: auto;
-  background-color: var(--secondary-color-alt);
 }
 .colorize {
   color: var(--primary-color);

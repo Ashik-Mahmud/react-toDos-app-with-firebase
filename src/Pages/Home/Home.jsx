@@ -1,12 +1,11 @@
 import React from "react";
 import styled from "styled-components";
+import CreateTodo from "../Todos/CreateTodo/CreateTodo";
 
 const Home = () => {
   return (
     <HomeContainer>
-      <div className="container">
-        <h1>Home</h1>
-      </div>
+      <CreateTodo />
     </HomeContainer>
   );
 };
