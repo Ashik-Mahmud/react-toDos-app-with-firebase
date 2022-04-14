@@ -1,27 +1,19 @@
+import { Route, Routes } from 'react-router-dom';
 import './App.css';
+import Home from './Pages/Home/Home';
+import Login from './Pages/Login/Login/Login';
+import SignUp from './Pages/Login/SignUp/SignUp';
 
 function App() {
   return (
     <>
-     <h1>Hello World</h1>
-     <button className="btn">Button Primary</button>
-     <button className="btn-outline">Button Outlined</button>
-     <table>
-         <thead>
-            <tr>
-            <th>SL No</th>
-             <th>Name</th>
-             <th>App</th>
-            </tr>
-         </thead>
-         <tbody>
-             <tr>
-                 <td>1</td>
-                 <td>Ashik</td>
-                 <td>Facebook</td>
-             </tr>
-         </tbody>
-     </table>
+    <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/home' element={<Home />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/sign-up' element={<SignUp />} />
+    </Routes>
+    
     </>
   );
 }

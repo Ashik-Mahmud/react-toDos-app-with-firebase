@@ -1,8 +1,8 @@
 :root {
   --primary-color: #0097e1;
-  --secondary-color: #333;
+  --secondary-color: #121212;
+  --secondary-color-alt: #1d1d1d;
   --accent-color: #fff;
-
   --fonts: "Poppins", sans-serif;
 }
 
@@ -17,6 +17,7 @@
 body {
   font-family: var(--fonts);
   font-size: 16px;
+  background-color: var(--secondary-color);
 }
 
 a {
@@ -44,6 +45,7 @@ table th {
 .container {
   max-width: min(100% - 2rem, 1200px);
   margin-inline: auto;
+  background-color: var(--secondary-color-alt);
 }
 .colorize {
   color: var(--primary-color);
