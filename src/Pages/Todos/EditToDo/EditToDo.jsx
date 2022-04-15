@@ -1,11 +1,14 @@
 import { doc, updateDoc } from "firebase/firestore";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import styled from "styled-components";
 import { db } from "../../../Firebase/Firebase.config";
 
 const EditToDo = ({ isEdit, setIsEdit, updateToDo }) => {
-  const [updateValue, setUpdateValue] = useState(updateToDo.todo);
+  const [updateValue, setUpdateValue] = useState("");
+  useEffect(() => {
+    setUpdateValue(updateToDo?.todo || "");
+  }, [updateToDo]);
 
   const handleUpdateToDo = async (event) => {
     event.preventDefault();
@@ -30,7 +33,7 @@ const EditToDo = ({ isEdit, setIsEdit, updateToDo }) => {
             type="text"
             placeholder="ToDos"
             id="todoText"
-            value={updateValue}
+            value={updateValue || ""}
             onChange={(e) => setUpdateValue(e.target.value)}
           />
         </div>
