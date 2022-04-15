@@ -12,11 +12,6 @@ import "../Styles/styles.css";
 const SignUp = () => {
   const { isAuth } = useContext(AuthContext);
   const navigate = useNavigate();
-  useEffect(() => {
-    if (isAuth) {
-      navigate("/home");
-    }
-  }, [isAuth, navigate]);
 
   const [formInput, setFormInput] = useState({
     name: "",
@@ -54,8 +49,12 @@ const SignUp = () => {
     }
     if (user) {
       toast.success("User created successfully done.");
+      navigate("/home");
     }
-  }, [error, user]);
+    if (isAuth) {
+      navigate("/home");
+    }
+  }, [isAuth, navigate, error, user]);
 
   return (
     <section className="signUp-container">
