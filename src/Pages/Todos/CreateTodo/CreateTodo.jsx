@@ -31,7 +31,9 @@ const CreateTodo = () => {
       return toast.error("Not available email of this credential");
     }
     sendEmailVerification(auth?.currentUser?.email);
-    toast.success("Email Verified successfully done.");
+    toast.success(
+      `we sent you email with verification link on your ${auth?.currentUser?.email}`
+    );
   };
 
   /* create todo field  */
