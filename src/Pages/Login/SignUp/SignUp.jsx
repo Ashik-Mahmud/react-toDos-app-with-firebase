@@ -113,7 +113,7 @@ const SignUp = () => {
 
           <div className="input-group">
             <button type="submit" className="btn">
-              Sign In
+              {loading ? "Creating...." : "Sign Up"}
             </button>
           </div>
           <SocialLogin />
@@ -123,8 +123,7 @@ const SignUp = () => {
               className="colorize cursor-pointer"
               onClick={() => navigate("/login")}
             >
-              {" "}
-              {loading ? "Creating...." : "Sign Up"}
+              Sign In
             </span>
           </p>
         </form>
