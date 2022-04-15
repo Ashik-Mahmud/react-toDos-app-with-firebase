@@ -1,5 +1,6 @@
 import { signOut } from "firebase/auth";
-import React, { useContext } from "react";
+import { addDoc, collection, Timestamp } from "firebase/firestore";
+import React, { useContext, useState } from "react";
 import { useSendEmailVerification } from "react-firebase-hooks/auth";
 import toast from "react-hot-toast";
 import { AiOutlineLogout } from "react-icons/ai";
@@ -9,7 +10,7 @@ import { MdVerified } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { AuthContext } from "../../../App";
-import { auth } from "../../../Firebase/Firebase.config";
+import { auth, db } from "../../../Firebase/Firebase.config";
 
 const CreateTodo = () => {
   const { loading, setIsAuth } = useContext(AuthContext);
@@ -33,6 +34,27 @@ const CreateTodo = () => {
     toast.success("Email Verified successfully done.");
   };
 
+  /* create todo field  */
+  const [todoText, setTodoText] = useState("");
+  const handleAddTodo = async () => {
+    if (!todoText) return toast.error("Todo text is empty!");
+
+    /* add todo on firebase storage */
+    const todoRef = collection(db, "/todos");
+    await addDoc(todoRef, {
+      todo: todoText,
+      createdAt: Timestamp.now().toDate(),
+      author: {
+        name: auth?.currentUser?.displayName,
+        uid: auth?.currentUser?.uid,
+      },
+    })
+      .then(() => {
+        toast.success("Todo Added Successfully.");
+        setTodoText("");
+      })
+      .catch((err) => console.log(err));
+  };
   return (
     <CreateTodoContainer>
       <div className="container">
@@ -94,8 +116,14 @@ const CreateTodo = () => {
             Create <span className="colorize">ToDos</span>
           </h1>
           <div className="todo-create-wrapper">
-            <input type="text" id="create-todo" placeholder="Create ToDos" />
-            <button className="btn">
+            <input
+              type="text"
+              id="create-todo"
+              onChange={(e) => setTodoText(e.target.value)}
+              value={todoText}
+              placeholder="Create ToDos"
+            />
+            <button className="btn" onClick={handleAddTodo}>
               <BsSearch />
             </button>
           </div>
