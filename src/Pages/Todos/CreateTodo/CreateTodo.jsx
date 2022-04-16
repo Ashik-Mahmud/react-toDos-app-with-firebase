@@ -57,6 +57,9 @@ const CreateTodo = () => {
       })
       .catch((err) => console.log(err));
   };
+  /* check user isVerified or not */
+  const isUserVerified = auth?.currentUser?.emailVerified;
+
   return (
     <CreateTodoContainer>
       <div className="container">
@@ -113,23 +116,25 @@ const CreateTodo = () => {
             </span>
           </div>
         </div>
-        <div className="wrapper">
-          <h1>
-            Create <span className="colorize">ToDos</span>
-          </h1>
-          <div className="todo-create-wrapper">
-            <input
-              type="text"
-              id="create-todo"
-              onChange={(e) => setTodoText(e.target.value)}
-              value={todoText}
-              placeholder="Create ToDos"
-            />
-            <button className="btn" onClick={handleAddTodo}>
-              <BsSearch />
-            </button>
+        {isUserVerified && (
+          <div className="wrapper">
+            <h1>
+              Create <span className="colorize">ToDos</span>
+            </h1>
+            <div className="todo-create-wrapper">
+              <input
+                type="text"
+                id="create-todo"
+                onChange={(e) => setTodoText(e.target.value)}
+                value={todoText}
+                placeholder="Create ToDos"
+              />
+              <button className="btn" onClick={handleAddTodo}>
+                <BsSearch />
+              </button>
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </CreateTodoContainer>
   );
