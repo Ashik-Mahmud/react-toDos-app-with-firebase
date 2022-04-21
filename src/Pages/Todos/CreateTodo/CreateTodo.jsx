@@ -116,7 +116,8 @@ const CreateTodo = () => {
             </span>
           </div>
         </div>
-        {isUserVerified && (
+        {!isUserVerified &&
+        auth?.currentUser?.providerData[0]?.providerId === "password" ? null : (
           <div className="wrapper">
             <h1>
               Create <span className="colorize">ToDos</span>

@@ -1,8 +1,12 @@
-# React ToDos Application using Firebase Database.
+## React ToDos Application using Firebase Database.
+
+---
 
 This is firebase based toDos application using firebase database and react. Here you can set your todos delete, and edits as well.
 
 ## Using Technologies
+
+---
 
 - React js
 - React Router
@@ -14,6 +18,8 @@ This is firebase based toDos application using firebase database and react. Here
 
 ## Required Features
 
+---
+
 - You can set your todos
 - Delete your todos
 - edit your todos
@@ -23,7 +29,11 @@ This is firebase based toDos application using firebase database and react. Here
 
 ## Live Link - [Click Here](https://react-todos-app-abf31.web.app/login)
 
+---
+
 ## Here is preview image
+
+---
 
 ![imageScreenshot](./preview.png)
 
