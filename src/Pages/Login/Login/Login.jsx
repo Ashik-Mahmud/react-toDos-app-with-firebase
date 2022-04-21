@@ -7,9 +7,12 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../App";
 import { auth } from "../../../Firebase/Firebase.config";
+import useTitle from "../../../Hooks/useTitle";
 import SocialLogin from "../SocialLogin/SocialLogin";
 import "../Styles/styles.css";
 const Login = () => {
+  useTitle("Login");
+
   const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
   const [sendPasswordResetEmail] = useSendPasswordResetEmail(auth);
@@ -50,11 +53,12 @@ const Login = () => {
   useEffect(() => {
     if (user) {
       toast.success("Logged In successfully done.");
+      navigate("/home");
     }
     if (error) {
       toast.error(error.message.split(":")[1]);
     }
-  }, [user, error]);
+  }, [user, error, navigate]);
 
   return (
     <section className="login-container">

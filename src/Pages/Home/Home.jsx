@@ -3,9 +3,12 @@ import React from "react";
 import toast from "react-hot-toast";
 import styled from "styled-components";
 import { auth } from "../../Firebase/Firebase.config";
+import useTitle from "../../Hooks/useTitle";
 import CreateTodo from "../Todos/CreateTodo/CreateTodo";
 import Todo from "../Todos/Todo/Todo";
 const Home = () => {
+  useTitle("Home");
+
   const isUserVerified = auth?.currentUser?.emailVerified;
   /*  verify email  */
   const verifyEmailInHome = () => {
@@ -17,20 +20,22 @@ const Home = () => {
       `we sent you email with verification link on your ${auth?.currentUser?.email}`
     );
   };
+
   return (
     <HomeContainer>
       <CreateTodo />
-      {isUserVerified ? (
+      {auth?.currentUser?.providerData[0]?.providerId === "password" &&
+      !isUserVerified ? (
         <>
-          <Todo />
+          <div className="err">
+            <p>You need to verify yourself to continue</p>
+            <button onClick={verifyEmailInHome} className="btn">
+              Verify
+            </button>
+          </div>
         </>
       ) : (
-        <div className="err">
-          <p>You need to verify yourself to continue</p>
-          <button onClick={verifyEmailInHome} className="btn">
-            Verify
-          </button>
-        </div>
+        <Todo />
       )}
     </HomeContainer>
   );
